@@ -1,10 +1,9 @@
 const axios = require('axios');
 //TODO: fixa så de går att lägga till fler kanaler via youtube-channels.json
-const channels = require('../json/json-handler').youtubeChannels;
 const jsonHandler = require('../json/json-handler');
+const channels = jsonHandler.youtube_channels;
 
 const url = `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_APIKEY}&part=snippet,id&order=date&maxResults=5&channelId=UCJfn3qHQ-Qy4xQDtSW3XT5Q`;
-const url2 = `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_APIKEY}&part=snippet,id&order=date&maxResults=5&channelId=UCJfn3qHQ-Qy4xQDtSW3XT5Q`;
 const youTube = axios.create({
   baseURL: url,
 });
@@ -14,17 +13,15 @@ const startedAt = Date.parse('2022-03-31T14:58:00Z');
 // const startedAt = new Date();
 
 module.exports = (channel) => {
-  console.log('time now', new Date().getHours());
   //TODO: Fixa så den inte kör mellan 24-07
   const do_the_stuff = async () => {
     const now = new Date().getHours();
-
-    if (now === 18)
+    if (now > 8)
       try {
         const response = await youTube.get();
         check_for_latest_video(response.data.items, channel);
       } catch (error) {
-        console.error('Error: Out of youtube units');
+        console.error(error);
       }
   };
 
@@ -46,9 +43,9 @@ const check_for_latest_video = (videos, channel) => {
     if (startedAt > publishedAt) {
       continue;
     }
-    console.log(video);
-    // send_message_to_channel(channel, video);
-    // console.log(video);
+    console.log('I FOR OF VIDOES');
+    if (jsonHandler.check_latest_video(video))
+      send_message_to_channel(channel, video);
   }
 };
 
