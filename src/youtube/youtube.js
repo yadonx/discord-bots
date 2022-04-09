@@ -16,7 +16,9 @@ module.exports = (channel) => {
   //TODO: Fixa så den inte kör mellan 24-07
   const do_the_stuff = async () => {
     const now = new Date().getHours();
+    const now_time = new Date();
     if (now > 8)
+    console.log("called youtube at:", now_time);
       try {
         const response = await youTube.get();
         check_for_latest_video(response.data.items, channel);
@@ -26,7 +28,7 @@ module.exports = (channel) => {
   };
 
   do_the_stuff();
-  // Calls youtube evry 15 min. change last number to change it.
+  // Calls youtube evry 10 min. change last number to change it.
   setInterval(do_the_stuff, 1000 * 60 * 10);
 };
 
@@ -40,9 +42,9 @@ const check_for_latest_video = (videos, channel) => {
     // DONT MORE CHECKS IF ITS UPLOADED BEFORE BOT STARTED
     const publishedAt = Date.parse(video.snippet.publishedAt);
 
-    // if (startedAt > publishedAt) {
-    //   continue;
-    // }
+    if (startedAt > publishedAt) {
+      continue;
+    }
     // console.log('I FOR OF VIDOES');
     if (jsonHandler.check_latest_video(video))
       send_message_to_channel(channel, video);
