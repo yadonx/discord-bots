@@ -9,8 +9,8 @@ const youTube = axios.create({
 });
 
 //FIXME Ändra tillbaka till new Date
-const startedAt = Date.parse('2022-03-31T14:58:00Z');
-// const startedAt = new Date();
+// const startedAt = Date.parse('2022-03-31T14:58:00Z');
+const startedAt = new Date();
 
 module.exports = (channel) => {
   //TODO: Fixa så den inte kör mellan 24-07
