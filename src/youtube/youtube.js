@@ -27,11 +27,11 @@ module.exports = (channel) => {
 
   do_the_stuff();
   // Calls youtube evry 15 min. change last number to change it.
-  // setInterval(getLatest, 1000 * 60 * 15);
+  setInterval(do_the_stuff, 1000 * 60 * 10);
 };
 
 const check_for_latest_video = (videos, channel) => {
-  console.log('vid Length:', videos.length);
+  // console.log('vid Length:', videos.length);
 
   const reversed = videos.reverse();
 
@@ -40,10 +40,10 @@ const check_for_latest_video = (videos, channel) => {
     // DONT MORE CHECKS IF ITS UPLOADED BEFORE BOT STARTED
     const publishedAt = Date.parse(video.snippet.publishedAt);
 
-    if (startedAt > publishedAt) {
-      continue;
-    }
-    console.log('I FOR OF VIDOES');
+    // if (startedAt > publishedAt) {
+    //   continue;
+    // }
+    // console.log('I FOR OF VIDOES');
     if (jsonHandler.check_latest_video(video))
       send_message_to_channel(channel, video);
   }
