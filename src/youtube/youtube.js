@@ -42,10 +42,9 @@ const check_for_latest_video = (videos, channel) => {
   for (const video of reversed) {
     // DONT MORE CHECKS IF ITS UPLOADED BEFORE BOT STARTED
     const publishedAt = Date.parse(video.snippet.publishedAt);
-
-    if (startedAt > publishedAt) {
-      continue;
-    }
+    // if (startedAt > publishedAt) {
+    //   continue;
+    // }
     // console.log('I FOR OF VIDOES');
     if (jsonHandler.check_latest_video(video))
       send_message_to_channel(channel, video);
@@ -53,6 +52,7 @@ const check_for_latest_video = (videos, channel) => {
 };
 
 const send_message_to_channel = (channel, video) => {
+  // console.log("send");
   channel.send(
     `${video.snippet.title}\nhttps://www.youtube.com/watch?v=${video.id.videoId}`
   );
