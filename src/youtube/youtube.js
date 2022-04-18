@@ -17,7 +17,8 @@ module.exports = (channel) => {
   const do_the_stuff = async () => {
     const now = new Date().getHours();
     const now_time = new Date();
-    if (now > 8)
+    // console.log(now);
+    if (now > 10 && now < 22)
     console.log("called youtube at:", now_time);
       try {
         const response = await youTube.get();
