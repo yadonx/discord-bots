@@ -1,6 +1,6 @@
 const axios = require('axios');
 //TODO: fixa så de går att lägga till fler kanaler via youtube-channels.json
-const jsonHandler = require('../json/json-handler');
+const jsonHandler = require('./json/json-handler');
 const channels = jsonHandler.youtube_channels;
 
 const url = `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_APIKEY}&part=snippet,id&order=date&maxResults=5&channelId=UCJfn3qHQ-Qy4xQDtSW3XT5Q`;
@@ -18,14 +18,13 @@ module.exports = (channel) => {
     const now = new Date().getHours();
     const now_time = new Date();
     // console.log(now);
-    if (now > 10 && now < 22)
-    console.log("called youtube at:", now_time);
-      try {
-        const response = await youTube.get();
-        check_for_latest_video(response.data.items, channel);
-      } catch (error) {
-        console.error(error);
-      }
+    if (now > 10 && now < 22) console.log('called youtube at:', now_time);
+    try {
+      const response = await youTube.get();
+      check_for_latest_video(response.data.items, channel);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   do_the_stuff();
